@@ -17,8 +17,12 @@ export class MessageService {
     );
   }
 
-  deleteMessage(message: Message) {
+  deleteMessage(message: Message): Observable<any> {
+    const idx = this.messageService.findIndex(msg => msg.messageId === message.messageId);
     this.messageService.splice(this.messageService.indexOf(message), 1);
+    return this.http.delete(this.baseUrl + 'messages/delete')
+    
+    
   }
 
   getMessages(): Observable<any> {
